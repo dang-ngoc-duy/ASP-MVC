@@ -1,0 +1,197 @@
+﻿@{
+    ViewBag.Title = "Cập nhật thông tin";
+}
+<link href="~/Content/css/account.css" rel="stylesheet" />
+@using QuanLyNhanSu.Models
+@model UserValidate
+
+<!--admin cap nhat-->
+
+<div class="">
+    <div class="">
+        <h1 class="page-header">
+            Cập nhật thông tin nhân viên
+        </h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <i class="fa fa-dashboard"></i> <a href="@Url.Action("index","Admin")">Tổng quan</a>
+            </li>
+            <li class="breadcrumb-item">
+                <i class="fa fa-fw fa-user"></i><a href="@Url.Action("index","QuanLyUser")">Nhân viên</a>
+            </li>
+            <li class="breadcrumb-item">
+                <i class="fa fa-fw fa-user"></i>Cập nhật thông tin nhân viên
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="">
+        @*@Url.Action("UpdateUser", "QuanLyUser")*@
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                @Html.AntiForgeryToken()
+                <form class="form-horizontal" method="post" role="form">
+                    @Html.ValidationSummary(true)
+                    <!--Tai khoang-->
+                    <div class="form-group">
+                        <div class="">
+                            <div class="col-sm-4 control-label">
+                                <label>Tài khoản</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" name="MaNhanVien"
+                                       class="form-control"
+                                       maxlength="20"
+                                       value="@Model.MaNhanVien.Trim()"
+                                       id="MaNhanVien" readonly />
+                            </div>
+                        </div>
+                        <div class="col-sm-offset-4 col-sm-5" style="height:15px">
+                            <label class="control-label text-danger">
+                                @ViewBag.MaNhanVien
+                                @Html.ValidationMessageFor(n => n.MaNhanVien)
+                            </label>
+
+                        </div>
+
+                    </div>
+                    <!--ho ten-->
+                    <div class="form-group">
+                        <div>
+                            <div class="col-sm-4 control-label">
+                                <label>Họ tên</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" name="HoTen"
+                                       class="form-control"
+                                       value="@Model.HoTen"
+                                       id="HoTen" required />
+                            </div>
+                        </div>
+                        <div class="col-sm-offset-4 col-sm-5" style="height:15px">
+                            <label class="control-label text-danger">
+                                @Html.ValidationMessageFor(n => n.HoTen)
+                            </label>
+                        </div>
+                    </div>
+
+                    @*Mật khẩu*@
+                    <div class="form-group">
+                        <div>
+                            <div class="col-sm-4 control-label">
+                                <label>Mật khẩu</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="password" name="MatKhau"
+                                       class="form-control"
+                                       id="MatKhau"
+                                       maxlength="50"
+                                       value="@Model.MatKhau"
+                                       required />
+                                <label class="control-label text-danger">
+                                    @Html.ValidationMessageFor(n => n.MatKhau)
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    @*Mật khẩu*@
+                    <div class="form-group">
+                        <div>
+                            <div class="col-sm-4 control-label">
+                                <label>Xác nhận mật khẩu</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="password" name="XacNhanMatKhau"
+                                       class="form-control"
+                                       id="XacNhanMatKhau"
+                                       maxlength="50"
+                                       value="@Model.XacNhanMatKhau"
+                                       required />
+                                <label class="control-label text-danger">
+                                    @Html.ValidationMessageFor(n => n.XacNhanMatKhau)
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    @* trinh do hoc van *@
+                    <div class="form-group">
+                        <div class="control-label  col-md-4 col-sm-4">
+                            <label>Trình độ học vấn</label>
+                        </div>
+                        <div class="col-md-8 col-sm-8">
+                            @{
+                                QuanLyNhanSuEntities db = new QuanLyNhanSuEntities();
+                                var hocVan = db.TrinhDoHocVans.ToList();
+                            }
+                            <select name="MaTrinhDoHocVan" class="form-control">
+                                @foreach (var item in hocVan)
+                                {
+                                    if (Model.MaTrinhDoHocVan == item.MaTrinhDoHocVan)
+                                    {
+                                        <option value="@item.MaTrinhDoHocVan.ToString()" selected>@item.TenTrinhDo</option>
+                                    }
+                                    <option value="@item.MaTrinhDoHocVan.ToString()">@item.TenTrinhDo</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    @*Giới tính*@
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Giới tính</label>
+
+                        <div class="col-sm-8 ">
+                            @{
+                                string check0 = string.Empty;
+                                string check1 = string.Empty;
+                                string check2 = string.Empty;
+                                switch (@Model.GioiTinh)
+                                {
+                                    case 0:
+                                        check0 = "checked";
+                                        break;
+                                    case 1:
+                                        check1 = "checked";
+                                        break;
+                                    default:
+                                        check2 = "checked";
+                                        break;
+                                }
+                            }
+                            <div class="radio-inline">
+                                <label><input type="radio" name="GioiTinh" value="1" @check1>Nam</label>
+                            </div>
+                            <div class="radio-inline">
+                                <label><input type="radio" name="GioiTinh" value="0" @check0>Nữ</label>
+                            </div>
+                            <div class="radio-inline">
+                                <label><input type="radio" name="GioiTinh" value="2" @check2>Khác</label>
+                            </div>
+                        </div>
+                    </div>
+                    @Html.HiddenFor(m => m.QueQuan, new { @name = "QueQuan" })
+                    @Html.HiddenFor(m => m.HinhAnh, new { @name = "HinhAnh" })
+                    @Html.HiddenFor(m => m.DanToc, new { @name = "DanToc" })
+                    @Html.HiddenFor(m => m.sdt_NhanVien, new { @name = "sdt_NhanVien" })
+                    @Html.HiddenFor(m => m.MaHopDong, new { @name = "MaHopDong" })
+                    @Html.HiddenFor(m => m.NgaySinh, new { @name = "NgaySinh" })
+                    @Html.HiddenFor(m => m.TrangThai, new { @name = "TrangThai" })
+                    @Html.HiddenFor(m => m.MaChuyenNganh, new { @name = "MaChuyenNganh" })
+                    @Html.HiddenFor(m => m.MaPhongBan, new { @name = "MaPhongBan" })
+                    @Html.HiddenFor(m => m.MaChucVuNV, new { @name = "MaChucVuNV" })
+                    @Html.HiddenFor(m => m.CMND, new { @name = "CMND" })
+                    @*button *@
+                    <div class="form-group">
+                        <div class=" col-sm-offset-4 col-sm-5">
+                            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>

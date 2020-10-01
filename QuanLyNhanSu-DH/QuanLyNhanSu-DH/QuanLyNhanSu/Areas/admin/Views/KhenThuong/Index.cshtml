@@ -1,0 +1,73 @@
+﻿@model IEnumerable<QuanLyNhanSu.Models.KhenThuong>
+
+@{
+    ViewBag.Title = "Danh sách khen thưởng";
+}
+
+
+<div class="">
+    <div class="">
+        <h1 class="page-header">
+            Khen thưởng nhân viên
+        </h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <i class="fa fa-tachometer-alt"></i> <a href="@Url.Action("index","Admin")">Tổng quan</a>
+            </li>
+            <li class="breadcrumb-item">
+                <i class="fa fa-money-bill"></i> Khen thưởng
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <a class="btn btn-primary" href="@Url.Action("khen", "KhenThuong")">Khen Thưởng</a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr class="success">
+                        <th>
+                            Mã nhân viên
+                        </th>
+                        <th>
+                            Tháng thưởng
+                        </th>
+                        <th>
+                            Lý do
+                        </th>
+                        <th>
+                            Tiền thưởng
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NhanVien.MaNhanVien)
+                            </td>
+                            <td>
+                                @String.Format("{0:dd/MM/yyyy}", @item.ThangThuong)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LyDo)
+                            </td>
+                            <td>
+                                @string.Format("{0:#,#}", @item.TienThuong).Replace(",", ",")
+
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

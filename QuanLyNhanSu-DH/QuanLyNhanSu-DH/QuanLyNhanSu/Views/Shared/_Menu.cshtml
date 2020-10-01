@@ -1,0 +1,53 @@
+﻿<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+        <div class="sidebar-brand-icon rotate-n-15">
+                <i>{DH}</i>
+            </div>
+            <div class="sidebar-brand-text mx-3">HR Manager</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    @*<li class="nav-item active">
+        <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Tổng quan</span>
+        </a>
+    </li>*@
+    <!-- Divider -->
+    @*<hr class="sidebar-divider">*@
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Interface
+    </div>
+
+    <!-- Nav Item - Cap nhat thong tin NV -->
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("UpdateUser", "login")">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Cập nhật thông tin</span>
+        </a>
+    </li>
+
+    <!-- Nav Item - Lich su nhan Luong NV -->
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Index", "NhanVien")">
+            <i class="fas fa-fw fa-money-bill"></i>
+            <span>Lịch sử nhận lương</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block" />
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+</ul>
